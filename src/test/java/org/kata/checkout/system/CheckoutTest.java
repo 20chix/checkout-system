@@ -70,4 +70,23 @@ class CheckoutTest {
 
         assertEquals(100, checkout.total());
     }
+
+    @Test
+    public void testCalculateTotal_mealDeal() {
+        Map<String, Integer> mealDealPrices = new HashMap<>();
+        mealDealPrices.put("D", 150);
+        mealDealPrices.put("E", 150);
+
+        Map<String, SpecialPrice> mealDeals = new HashMap<>();
+        mealDeals.put("D", new MealDeal(prices, mealDealPrices, checkout.getItems()));
+        mealDeals.put("E", new MealDeal(prices, mealDealPrices, checkout.getItems()));
+
+        checkout.setPricing(prices, mealDeals);
+        checkout.scan("D");
+        checkout.scan("E");
+        checkout.scan("D");
+        checkout.scan("E");
+
+        assertEquals(600, checkout.total());
+    }
 }
