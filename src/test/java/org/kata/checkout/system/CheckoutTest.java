@@ -12,11 +12,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 class CheckoutTest {
     private static Checkout checkout;
     private static Map<String, Integer> prices;
+    private Map<String, SpecialPrice> specialPrices;
+
 
     @BeforeEach
     public void setUp(){
         prices = new HashMap<>();
         checkout = new Checkout();
+        specialPrices = new HashMap<>();
 
         prices.put("A", 50);
         prices.put("B", 75);
@@ -27,7 +30,7 @@ class CheckoutTest {
 
     @Test
     void testCalculateTotal_noSpecialPrices() {
-        checkout.setPricing(prices);
+        checkout.setPricing(prices, specialPrices);
         checkout.scan("A");
         checkout.scan("B");
         checkout.scan("C");
