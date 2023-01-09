@@ -89,4 +89,22 @@ class CheckoutTest {
 
         assertEquals(600, checkout.total());
     }
+
+    @Test
+    public void testCalculateTotal_mixed() {
+        specialPrices.put("A", new MultiPriced(50, 3, 130));
+        specialPrices.put("C", new BuyNGetOneFree(25, 3));
+
+        checkout.setPricing(prices, specialPrices);
+
+        checkout.scan("C");
+        checkout.scan("C");
+        checkout.scan("C");
+
+        checkout.scan("A");
+        checkout.scan("A");
+        checkout.scan("A");
+
+        assertEquals(180, checkout.total());
+    }
 }
