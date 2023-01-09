@@ -54,4 +54,20 @@ class CheckoutTest {
 
         assertEquals(255, checkout.total());
     }
+
+    @Test
+    public void testCalculateTotal_buyNGetOneFree() {
+        specialPrices.put("C", new BuyNGetOneFree(25, 3));
+
+        checkout.setPricing(prices, specialPrices);
+        checkout.scan("C");
+        checkout.scan("C");
+        checkout.scan("C");
+
+        checkout.scan("C");
+        checkout.scan("C");
+        checkout.scan("C");
+
+        assertEquals(100, checkout.total());
+    }
 }
