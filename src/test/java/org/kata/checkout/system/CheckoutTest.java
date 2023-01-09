@@ -39,4 +39,19 @@ class CheckoutTest {
 
         assertEquals(checkout.total(), 500);
     }
+
+    @Test
+    public void testCalculateTotal_multiPrice() {
+        specialPrices.put("A", new MultiPriced(50, 3, 130));
+        specialPrices.put("B", new MultiPriced(75, 2, 125));
+
+        checkout.setPricing(prices, specialPrices);
+        checkout.scan("A");
+        checkout.scan("A");
+        checkout.scan("A");
+        checkout.scan("B");
+        checkout.scan("B");
+
+        assertEquals(255, checkout.total());
+    }
 }
